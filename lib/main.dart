@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 import 'package:get/route_manager.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:krishak/firebase_options.dart';
 import 'package:krishak/funs/bindings/initial_binding.dart';
 import 'package:krishak/routes/app_routes.dart';
@@ -9,6 +11,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Hive.initFlutter();
+
+  await Hive.openBox(Env.user);
+
   runApp(const MyApp());
 }
 
@@ -34,6 +40,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Krishak',
       themeMode: ThemeMode.system,
       initialBinding: InitialBinding(),
+      localizationsDelegates: const [FlutterQuillLocalizations.delegate],
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       routeInformationParser: appRoute.routers.routeInformationParser,
       routerDelegate: appRoute.routers.routerDelegate,
@@ -41,4 +48,8 @@ class _MyAppState extends State<MyApp> {
       // routerConfig: AppRoute(context: context).routers,
     );
   }
+}
+
+abstract class Env {
+  static const String user = "userBox";
 }

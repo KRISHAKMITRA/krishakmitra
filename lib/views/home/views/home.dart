@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/state_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:krishak/consts/images.dart';
 import 'package:krishak/utils/common_image.dart';
 import 'package:krishak/views/home/controller/home_controller.dart';
@@ -12,7 +14,7 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       initState: (state) {
-        controller.googleSignIn();
+        if (!kDebugMode) controller.googleSignIn();
       },
       builder: (_) {
         return Scaffold(
@@ -32,7 +34,6 @@ class HomePage extends GetView<HomeController> {
                             hintText: 'Search...',
                             // prefixIcon: Icon(Icons.search),
                             isDense: true,
-
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -46,13 +47,32 @@ class HomePage extends GetView<HomeController> {
                       Spacer(),
                       Text("Home", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                       Gap(20),
-                      Text("Categories", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                      InkWell(
+                        onTap: () {
+                          // context.go('/create');
+                        },
+                        child: Text("Categories", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                      ),
                       Gap(20),
-                      Text("Contact Us", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                      InkWell(
+                        onTap: () {
+                          context.go('/create');
+                        },
+                        child: Text("Contribute", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                      ),
                       Gap(20),
-                      Text("Sign In", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                      Text("Any Questions", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
                       Gap(20),
-                      Text("Getting Started", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                      Obx(() {
+                        return !controller.isLogin.value
+                            ? InkWell(
+                              onTap: () {
+                                controller.googleSignIn();
+                              },
+                              child: Text("Sign In", style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                            )
+                            : SizedBox(height: 40, width: 40, child: CommonImageWidget(image: controller.userImage, borderRadius: 500));
+                      }),
                       Gap(40),
                     ],
                   ),

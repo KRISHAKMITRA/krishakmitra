@@ -12,7 +12,7 @@ class AuthService {
       //   await _auth.signInWithRedirect(authProvider);
       // } else {
       // Use traditional Google Sign-In for mobile
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signInSilently();
       if (googleUser == null) return null;
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;

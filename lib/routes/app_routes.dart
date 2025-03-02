@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:krishak/consts/enums.dart';
 import 'package:krishak/funs/bindings/initial_binding.dart';
+import 'package:krishak/views/create_bloc/views/create_bloc.dart';
 import 'package:krishak/views/home/controller/home_controller.dart';
 import 'package:krishak/views/home/views/home.dart';
 
@@ -26,6 +27,13 @@ class AppRoute {
           builder: (context, state) {
             InitialBinding().dependencies();
             return const HomePage();
+          },
+        ),
+        GoRoute(
+          path: AppRoutes.create.path,
+          builder: (context, state) {
+            CreateBlocBinding().dependencies();
+            return PublishPostPage();
           },
         ),
       ],

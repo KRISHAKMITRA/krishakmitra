@@ -35,6 +35,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   go_router:
+  hive_flutter:
+  hive:
   gap:
   flutter_svg:
   cached_network_image:
@@ -45,6 +47,8 @@ dependencies:
   firebase_auth: 
   firebase_storage:
   cloud_firestore: 
+  flutter_quill:
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
